@@ -6,13 +6,20 @@ interface Dot {
   y: number;
 }
 
+type Curve = [Dot, Dot, Dot, Dot];
+
 const DOT_SPACING = 22;
 const FLICKERING_DOTS = 5;
-const CURVE_SWING = 0.3;
-const STACKED_RATIO = 0.2;
-const STACKED_BOW = 0.45;
-const SILHOUETTE_CLEARANCE = 16;
-const EDGE_MARGIN = 12;
+const EDGE_MARGIN = 14;
+const OBSTACLE_PADDING = 12;
+const CURVE_SAMPLES = 400;
+const FOOT_CLEARANCE = 5;
+// How far each curve reaches sideways, as a share of the section's width.
+const WIDEST_SWING = 0.7;
+const SWING_STEP = 0.05;
+// How much of a curve's height its ends use, which keeps them nearly level
+// where they meet a foot.
+const CURVE_EASE = 0.12;
 // The path has reached this far down the viewport as you scroll.
 const DRAW_LINE = 0.65;
 
@@ -29,58 +36,123 @@ function positionWithin(element: HTMLElement, root: HTMLElement) {
   return { x, y };
 }
 
-function buildPath(root: HTMLElement) {
+function footOf(silhouette: HTMLElement, root: HTMLElement): Dot {
+  const { x, y } = positionWithin(silhouette, root);
+  return {
+    x: x + silhouette.offsetWidth * Number(silhouette.dataset.footX),
+    y: y + silhouette.offsetHeight * Number(silhouette.dataset.footY) + FOOT_CLEARANCE,
+  };
+}
+
+function bezier(t: number, a: number, b: number, c: number, d: number) {
+  const u = 1 - t;
+  return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d;
+}
+
+// The widest curve between two feet that still stays on the page.
+function widestControls(
+  from: Dot,
+  to: Dot,
+  leaving: number,
+  arriving: number,
+  width: number
+): [number, number] {
+  for (let swing = WIDEST_SWING; swing > 0; swing -= SWING_STEP) {
+    const first = from.x + leaving * swing * width;
+    const second = to.x - arriving * swing * width;
+    const fits = Array.from({ length: 41 }, (_, step) =>
+      bezier(step / 40, from.x, first, second, to.x)
+    ).every((x) => x >= EDGE_MARGIN && x <= width - EDGE_MARGIN);
+    if (fits) return [first, second];
+  }
+  return [from.x, to.x];
+}
+
+// A continuous wave through each foot: it heads left from the first dancer,
+// then each curve leaves in the direction the last one arrived.
+function buildCurves(root: HTMLElement) {
   const silhouettes = Array.from(root.querySelectorAll<HTMLElement>('[data-silhouette]'));
+  const feet = silhouettes.map((silhouette) => footOf(silhouette, root));
   const width = root.clientWidth;
-  const swing = width * CURVE_SWING;
-  const clampX = (x: number) => Math.min(width - EDGE_MARGIN, Math.max(EDGE_MARGIN, x));
+  let leaving = -1;
 
-  return silhouettes.slice(0, -1).reduce((path, silhouette, index) => {
-    const start = positionWithin(silhouette, root);
-    const end = positionWithin(silhouettes[index + 1], root);
-    const startX = start.x + silhouette.offsetWidth / 2;
-    const startY = start.y + silhouette.offsetHeight + SILHOUETTE_CLEARANCE;
-    const endX = end.x + silhouettes[index + 1].offsetWidth / 2;
-    const endY = end.y - SILHOUETTE_CLEARANCE;
-    const third = (endY - startY) / 3;
-    const direction = index % 2 === 0 ? 1 : -1;
-    // Stacked silhouettes bow out to one side; offset ones swing in an S.
-    const stacked = Math.abs(endX - startX) < width * STACKED_RATIO;
-    const firstX = clampX(startX + (stacked ? width * STACKED_BOW : swing) * direction);
-    const secondX = stacked ? firstX : clampX(endX - swing * direction);
+  return feet.slice(0, -1).map((from, index) => {
+    const to = feet[index + 1];
+    const arriving = index % 2 === 0 ? -1 : 1;
+    const ease = (to.y - from.y) * CURVE_EASE;
+    const [first, second] = widestControls(from, to, leaving, arriving, width);
+    leaving = arriving;
+    return [from, { x: first, y: from.y + ease }, { x: second, y: to.y - ease }, to] as Curve;
+  });
+}
 
-    return `${path}${index === 0 ? 'M' : 'L'} ${startX} ${startY} C ${firstX} ${
-      startY + third
-    }, ${secondX} ${endY - third}, ${endX} ${endY} `;
-  }, '');
+function obstaclesWithin(root: HTMLElement) {
+  return Array.from(root.querySelectorAll<HTMLElement>('h2, p, figure, [data-silhouette]')).map(
+    (element) => {
+      // No padding around silhouettes, so the path can reach their feet.
+      const padding = element.hasAttribute('data-silhouette') ? 0 : OBSTACLE_PADDING;
+      const { x, y } = positionWithin(element, root);
+      return {
+        left: x - padding,
+        right: x + element.offsetWidth + padding,
+        top: y - padding,
+        bottom: y + element.offsetHeight + padding,
+      };
+    }
+  );
+}
+
+// Evenly spaced dots along a curve, with one exactly on each end.
+function dotsAlong([a, b, c, d]: Curve) {
+  const samples = Array.from({ length: CURVE_SAMPLES + 1 }, (_, step) => {
+    const t = step / CURVE_SAMPLES;
+    return { x: bezier(t, a.x, b.x, c.x, d.x), y: bezier(t, a.y, b.y, c.y, d.y) };
+  });
+  const distances = [0];
+  samples.slice(1).forEach((sample, index) => {
+    const previous = samples[index];
+    distances.push(distances[index] + Math.hypot(sample.x - previous.x, sample.y - previous.y));
+  });
+  const length = distances[CURVE_SAMPLES];
+  const steps = Math.max(1, Math.round(length / DOT_SPACING));
+
+  let sampleIndex = 0;
+  return Array.from({ length: steps + 1 }, (_, step) => {
+    const target = (length * step) / steps;
+    while (sampleIndex < CURVE_SAMPLES && distances[sampleIndex] < target) sampleIndex += 1;
+    return samples[sampleIndex];
+  });
 }
 
 export default function FootstepPath({ containerRef }: { containerRef: RefObject<HTMLElement> }) {
   const reduceMotion = useReducedMotion();
-  const guideRef = useRef<SVGPathElement>(null);
   const dotsRef = useRef<SVGGElement>(null);
   const [dots, setDots] = useState<Dot[]>([]);
 
   useEffect(() => {
     const container = containerRef.current;
-    const guide = guideRef.current;
-    if (!container || !guide) return;
+    if (!container) return;
 
     const measure = () => {
-      guide.setAttribute('d', buildPath(container));
-      const length = guide.getTotalLength();
-      const count = Math.floor(length / DOT_SPACING);
+      const obstacles = obstaclesWithin(container);
+      const points = buildCurves(container).flatMap((curve, index) =>
+        // Each curve starts on the foot where the last one ended.
+        dotsAlong(curve).slice(index === 0 ? 0 : 1)
+      );
       setDots(
-        Array.from({ length: count + 1 }, (_, index) => {
-          const { x, y } = guide.getPointAtLength(index * DOT_SPACING);
-          return { x, y };
-        })
+        points.filter(
+          ({ x, y }) =>
+            !obstacles.some(
+              (box) => x >= box.left && x <= box.right && y >= box.top && y <= box.bottom
+            )
+        )
       );
     };
 
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(container);
+    void document.fonts.ready.then(measure);
     return () => observer.disconnect();
   }, [containerRef]);
 
@@ -139,7 +211,6 @@ export default function FootstepPath({ containerRef }: { containerRef: RefObject
 
   return (
     <svg aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 h-full w-full">
-      <path ref={guideRef} fill="none" />
       <g ref={dotsRef}>
         {dots.map((dot, index) => (
           <circle
