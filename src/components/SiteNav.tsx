@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { nav, site } from '@/data/content';
@@ -61,7 +61,7 @@ export default function SiteNav() {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-10 md:flex">
+        <div className="hidden items-center gap-10 lg:flex">
           <ul className="flex items-center gap-10">
             {nav.links.map((item) => (
               <li key={item.to}>
@@ -71,21 +71,25 @@ export default function SiteNav() {
               </li>
             ))}
           </ul>
-          <NavLink
-            to={nav.ticketsTo}
+          <a
+            href={nav.ticketsHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center rounded-md bg-mid px-5 py-3 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-lagoon focus-visible:outline-lagoon"
           >
             {nav.ticketsLabel}
-          </NavLink>
+          </a>
         </div>
 
-        <div className="flex items-center gap-3 md:hidden">
-          <NavLink
-            to={nav.ticketsTo}
+        <div className="flex items-center gap-3 lg:hidden">
+          <a
+            href={nav.ticketsHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center rounded-md bg-mid px-4 py-2.5 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-lagoon focus-visible:outline-lagoon"
           >
             {nav.ticketsShortLabel}
-          </NavLink>
+          </a>
           <button
             type="button"
             aria-expanded={menuOpen}
@@ -103,7 +107,7 @@ export default function SiteNav() {
         {menuOpen && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-0 z-40 flex flex-col bg-ink md:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-ink lg:hidden"
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

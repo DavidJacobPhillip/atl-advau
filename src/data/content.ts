@@ -92,10 +92,11 @@ export const nav = {
     { label: 'About', to: '/#about' },
     { label: 'Gallery', to: '/#gallery' },
     { label: 'Board', to: '/#board' },
+    { label: 'Donate', to: '#donate' },
   ],
   ticketsLabel: 'Tickets: Bhakti Vilochanena',
   ticketsShortLabel: 'Tickets',
-  ticketsTo: '/bhakti-vilochanena',
+  ticketsHref: 'https://www.instagram.com/p/DfGr3-gSViG/',
   homeLabel: 'Atlanta Adavu home',
   primaryLabel: 'Primary',
   openMenu: 'Open menu',
@@ -409,21 +410,16 @@ export const board = {
 };
 
 export const footer = {
-  joinTitle: 'Join a meetup',
-  schedule: {
-    label: 'SCHEDULE - meetup dates and times, to be added',
-    text: 'Meetups run several times a month. Check the schedule for the next open practice.',
-  },
-  rsvp: { label: 'RSVP', href: '#' },
+  joinTitle: 'Join our adavu',
+  joinText: 'Reach out to us today on Instagram or email to join our next meetup.',
   instagram: { label: 'Instagram', handle: '@atl.adavu', href: 'https://www.instagram.com/atl.adavu/' },
-  email: { label: 'Contact', address: 'hello@atlantaadavu.org', href: 'mailto:hello@atlantaadavu.org' },
-  newsletter: {
-    title: 'Newsletter',
-    placeholder: 'Your email address',
-    button: 'Subscribe',
-    label: 'Email address',
+  email: { label: 'Contact', address: 'atlantaadavu@gmail.com', href: 'mailto:atlantaadavu@gmail.com' },
+  donate: {
+    label: 'Donate',
+    text: 'Your gift keeps our meetups open to every dancer and brings guest artists and new productions to Atlanta.',
+    linkLabel: 'Venmo @ATLadavu',
+    href: 'https://venmo.com/u/ATLadavu',
   },
-  donate: { label: 'Donate', href: '#' },
 };
 
 export const event = {

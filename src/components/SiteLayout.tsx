@@ -5,7 +5,7 @@ import SiteFooter from '@/components/SiteFooter';
 import { ui } from '@/data/content';
 
 export default function SiteLayout() {
-  const { pathname, hash } = useLocation();
+  const { pathname, hash, key } = useLocation();
 
   useEffect(() => {
     if (hash) {
@@ -17,7 +17,7 @@ export default function SiteLayout() {
       }
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
-  }, [pathname, hash]);
+  }, [pathname, hash, key]);
 
   return (
     <div className="min-h-svh bg-blush">
