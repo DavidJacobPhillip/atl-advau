@@ -141,7 +141,8 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Lightbox
               <Placard
                 tone="dark"
                 title={item.title}
-                lines={[`${item.event}, ${item.year}`, item.credit]}
+                lines={[item.date]}
+                link={{ href: item.instagramUrl, label: ui.instagramPost }}
               />
             </figure>
             <div className="flex shrink-0 items-center gap-2">

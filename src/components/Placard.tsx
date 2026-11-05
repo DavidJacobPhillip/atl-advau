@@ -3,11 +3,12 @@ import { classNames } from '@/lib/classNames';
 interface PlacardProps {
   title: string;
   lines?: string[];
+  link?: { href: string; label: string };
   tone?: 'light' | 'dark';
   className?: string;
 }
 
-export default function Placard({ title, lines = [], tone = 'light', className }: PlacardProps) {
+export default function Placard({ title, lines = [], link, tone = 'light', className }: PlacardProps) {
   return (
     <figcaption
       className={classNames(
@@ -28,6 +29,19 @@ export default function Placard({ title, lines = [], tone = 'light', className }
           {line}
         </p>
       ))}
+      {link && (
+        <p className="font-sans text-[11px] font-medium uppercase tracking-[0.16em]">
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${link.label}: ${title}`}
+            className="underline decoration-lagoon underline-offset-4 transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
+          >
+            {link.label}
+          </a>
+        </p>
+      )}
     </figcaption>
   );
 }

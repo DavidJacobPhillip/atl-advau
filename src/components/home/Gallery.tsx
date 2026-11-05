@@ -1,13 +1,27 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useSyncExternalStore } from 'react';
 import { motion } from 'framer-motion';
 import Lightbox from '@/components/gallery/Lightbox';
 import MediaPlaceholder from '@/components/MediaPlaceholder';
 import Placard from '@/components/Placard';
 import Reveal from '@/components/Reveal';
-import { galleryIntro, galleryItems, ui, type GalleryCategory } from '@/data/content';
+import { galleryIntro, galleryItems, ui, type GalleryCategory, type GalleryItem } from '@/data/content';
 import { classNames } from '@/lib/classNames';
 
 type FilterId = (typeof galleryIntro.filters)[number]['id'];
+
+const TWO_COLUMNS = '(min-width: 640px)';
+const THREE_COLUMNS = '(min-width: 1024px)';
+
+function subscribeToColumnCount(onChange: () => void) {
+  const queries = [TWO_COLUMNS, THREE_COLUMNS].map((query) => window.matchMedia(query));
+  queries.forEach((query) => query.addEventListener('change', onChange));
+  return () => queries.forEach((query) => query.removeEventListener('change', onChange));
+}
+
+function getColumnCount() {
+  if (window.matchMedia(THREE_COLUMNS).matches) return 3;
+  return window.matchMedia(TWO_COLUMNS).matches ? 2 : 1;
+}
 
 export default function Gallery() {
   const [filter, setFilter] = useState<FilterId>('all');
@@ -20,6 +34,16 @@ export default function Gallery() {
         : galleryItems.filter((item) => item.category === (filter as GalleryCategory)),
     [filter]
   );
+
+  // Dealt out one by one so the order reads left to right, then top to bottom.
+  const columnCount = useSyncExternalStore(subscribeToColumnCount, getColumnCount);
+  const columns = useMemo(() => {
+    const dealt = Array.from({ length: columnCount }, () => [] as { item: GalleryItem; viewerIndex: number }[]);
+    visibleItems.forEach((item, viewerIndex) => {
+      dealt[viewerIndex % columnCount].push({ item, viewerIndex });
+    });
+    return dealt;
+  }, [visibleItems, columnCount]);
 
   const closeViewer = useCallback(() => setOpenIndex(null), []);
   const navigateViewer = useCallback((index: number) => setOpenIndex(index), []);
@@ -71,38 +95,44 @@ export default function Gallery() {
           </div>
         </Reveal>
 
-        <ul className="mt-24 columns-1 gap-x-10 sm:columns-2 lg:columns-3 lg:gap-x-16">
-          {visibleItems.map((item, viewerIndex) => {
-            return (
-              <li key={item.id} className="mb-20 break-inside-avoid sm:mb-28">
-                <Reveal delay={(viewerIndex % 3) * 0.06}>
-                  <figure>
-                    <button
-                      type="button"
-                      onClick={() => setOpenIndex(viewerIndex)}
-                      aria-label={`${ui.openItem}: ${item.title}`}
-                      className="group block w-full rounded-md text-left focus-visible:outline-lagoon"
-                    >
-                      <div className="transition-opacity duration-700 group-hover:opacity-90">
-                        <MediaPlaceholder
-                          label={item.label}
-                          ratio={item.ratio}
-                          type={item.type}
-                          src={item.src}
-                          poster={item.poster}
-                          alt={item.alt}
-                          playInView={item.type === 'video'}
-                          className="w-full"
-                        />
-                      </div>
-                    </button>
-                    <Placard title={item.title} lines={[`${item.event}, ${item.year}`, item.credit]} />
-                  </figure>
-                </Reveal>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="mt-24 flex items-start gap-x-10 lg:gap-x-16">
+          {columns.map((column, columnIndex) => (
+            <ul key={columnIndex} className="min-w-0 flex-1">
+              {column.map(({ item, viewerIndex }) => (
+                <li key={item.id} className="mb-20 sm:mb-28">
+                  <Reveal delay={columnIndex * 0.06}>
+                    <figure>
+                      <button
+                        type="button"
+                        onClick={() => setOpenIndex(viewerIndex)}
+                        aria-label={`${ui.openItem}: ${item.title}, ${item.date}`}
+                        className="group block w-full rounded-md text-left focus-visible:outline-lagoon"
+                      >
+                        <div className="transition-opacity duration-700 group-hover:opacity-90">
+                          <MediaPlaceholder
+                            label={item.label}
+                            ratio={item.ratio}
+                            type={item.type}
+                            src={item.src}
+                            poster={item.poster}
+                            alt={item.alt}
+                            playInView={item.type === 'video'}
+                            className="w-full"
+                          />
+                        </div>
+                      </button>
+                      <Placard
+                        title={item.title}
+                        lines={[item.date]}
+                        link={{ href: item.instagramUrl, label: ui.instagramPost }}
+                      />
+                    </figure>
+                  </Reveal>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
       </div>
 
       <Lightbox
