@@ -1,3 +1,6 @@
+import heroVideo from '@/assets/hero.mp4';
+import heroPoster from '@/assets/hero-poster.jpg';
+
 export type MediaType = 'photo' | 'video';
 
 export type GalleryCategory = 'performances' | 'meetups' | 'workshops';
@@ -89,9 +92,9 @@ export const hero = {
     type: 'video',
     label: 'HERO VIDEO - dark-lit dancers',
     ratio: '16/9',
-    src: '',
-    poster: '',
-    alt: 'Dancers moving in a dark-lit studio',
+    src: heroVideo,
+    poster: heroPoster,
+    alt: 'Bharatanatyam dancers performing on a dark-lit stage',
   } satisfies MediaAsset,
   scrollCue: 'Scroll',
 };
