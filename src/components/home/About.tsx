@@ -50,12 +50,12 @@ export default function About() {
           </h2>
         </Reveal>
 
-        <div className="mt-24 grid grid-cols-12 items-center gap-x-6 gap-y-16">
-          <Reveal className="col-span-12 lg:col-span-2 lg:col-start-6 lg:row-start-1">
-            <Silhouette index={0} className="mx-auto" />
-          </Reveal>
-          <Reveal className="col-span-12 lg:col-span-4 lg:col-start-8 lg:row-start-1">
-            <p className="max-w-[60ch] text-[17px] leading-[1.6]">{about.intro}</p>
+        <div className="mt-24 grid grid-cols-12 gap-x-6">
+          <Reveal className="col-span-12 lg:col-span-4 lg:col-start-8">
+            <div className="max-w-[60ch]">
+              <Silhouette index={0} className="mx-auto mb-10" />
+              <p className="text-[17px] leading-[1.6]">{about.intro}</p>
+            </div>
           </Reveal>
         </div>
 
