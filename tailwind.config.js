@@ -20,15 +20,6 @@ export default {
       maxWidth: {
         page: '1440px',
       },
-      keyframes: {
-        scrollCue: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(200%)' },
-        },
-      },
-      animation: {
-        scrollCue: 'scrollCue 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite',
-      },
     },
   },
   plugins: [],

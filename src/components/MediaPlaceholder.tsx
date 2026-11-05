@@ -59,7 +59,7 @@ export default function MediaPlaceholder({
   }, [playInView, reduceMotion, src]);
 
   const frameStyle = fill ? undefined : { aspectRatio: ratio };
-  const frameClass = classNames(fill ? 'absolute inset-0 overflow-hidden' : 'relative overflow-hidden', className);
+  const frameClass = classNames(fill ? 'absolute inset-0 overflow-hidden' : 'relative overflow-hidden rounded-md', className);
 
   let content;
   if (showVideo) {

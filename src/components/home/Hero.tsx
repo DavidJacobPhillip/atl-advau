@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import MediaPlaceholder from '@/components/MediaPlaceholder';
-import { hero, site } from '@/data/content';
+import { hero } from '@/data/content';
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -36,23 +36,13 @@ export default function Hero() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
       >
-        <p className="eyebrow text-blush/80">{site.name.toUpperCase()}</p>
         <h1
           id="hero-title"
-          className="mt-6 font-serif text-display text-blush"
+          className="font-serif text-display text-blush"
         >
           {hero.line}
         </h1>
       </motion.div>
-
-      <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3">
-        <span className="eyebrow text-blush/70">{hero.scrollCue}</span>
-        <span className="relative h-12 w-px overflow-hidden bg-blush/25" aria-hidden="true">
-          {!reduceMotion && (
-            <span className="absolute inset-x-0 top-0 h-1/2 bg-blush animate-scrollCue" />
-          )}
-        </span>
-      </div>
     </section>
   );
 }

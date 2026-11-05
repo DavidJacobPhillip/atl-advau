@@ -1,5 +1,6 @@
 import heroVideo from '@/assets/hero.mp4';
 import heroPoster from '@/assets/hero-poster.jpg';
+import logo from '@/assets/logo.png';
 
 export type MediaType = 'photo' | 'video';
 
@@ -51,7 +52,7 @@ export const site = {
   description:
     'Atlanta Adavu is a Bharatanatyam collective in Atlanta, part of a global network of adavu meetups.',
   logo: {
-    src: '',
+    src: logo,
     alt: 'Atlanta Adavu logo',
     label: 'LOGO - light version',
   },
@@ -86,7 +87,6 @@ export const ui = {
 };
 
 export const hero = {
-  eyebrow: 'ATLANTA ADAVU',
   line: 'Return to the roots.',
   video: {
     type: 'video',
@@ -96,7 +96,6 @@ export const hero = {
     poster: heroPoster,
     alt: 'Bharatanatyam dancers performing on a dark-lit stage',
   } satisfies MediaAsset,
-  scrollCue: 'Scroll',
 };
 
 export const about = {

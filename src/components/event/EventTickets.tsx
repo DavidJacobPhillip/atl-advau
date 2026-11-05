@@ -33,11 +33,11 @@ export default function EventTickets({ isPast }: { isPast: boolean }) {
             <ul className="mt-20 grid gap-6 md:grid-cols-2">
               {tickets.tiers.map((tier) => (
                 <li key={tier.id}>
-                  <Reveal className="flex aspect-square flex-col justify-between border border-deep/20 bg-white/60 p-8 sm:p-10">
+                  <Reveal className="flex aspect-square flex-col justify-between rounded-md border border-deep/20 bg-white/60 p-8 sm:p-10">
                     <div className="flex items-start justify-between gap-4">
                       <p className="placard">{tier.name}</p>
                       {tier.note && (
-                        <span className="bg-mid px-3 py-1.5 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-white">
+                        <span className="rounded-md bg-mid px-3 py-1.5 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-white">
                           {tier.note}
                         </span>
                       )}

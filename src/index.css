@@ -45,7 +45,7 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center bg-mid px-7 py-3.5 font-sans text-[13px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-lagoon focus-visible:outline-lagoon;
+    @apply inline-flex items-center justify-center rounded-md bg-mid px-7 py-3.5 font-sans text-[13px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-lagoon focus-visible:outline-lagoon;
   }
 }
 

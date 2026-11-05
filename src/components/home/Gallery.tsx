@@ -81,7 +81,7 @@ export default function Gallery() {
                       type="button"
                       onClick={() => setOpenIndex(viewerIndex)}
                       aria-label={`${ui.openItem}: ${item.title}`}
-                      className="group block w-full text-left focus-visible:outline-lagoon"
+                      className="group block w-full rounded-md text-left focus-visible:outline-lagoon"
                     >
                       <div className="transition-opacity duration-700 group-hover:opacity-90">
                         <MediaPlaceholder

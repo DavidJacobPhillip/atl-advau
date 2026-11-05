@@ -105,7 +105,7 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Lightbox
               type="button"
               onClick={onClose}
               aria-label={ui.close}
-              className="flex h-11 w-11 items-center justify-center text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
+              className="flex h-11 w-11 items-center justify-center rounded-md text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
             >
               <X aria-hidden="true" className="h-6 w-6" />
             </button>
@@ -131,6 +131,7 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Lightbox
                 controls={item.type === 'video'}
                 muted={false}
                 autoPlay={item.type === 'video'}
+                className="rounded-md"
               />
             </div>
           </div>
@@ -148,7 +149,7 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Lightbox
                 type="button"
                 onClick={() => onNavigate((index - 1 + count) % count)}
                 aria-label={ui.previous}
-                className="flex h-12 w-12 items-center justify-center text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
+                className="flex h-12 w-12 items-center justify-center rounded-md text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
               >
                 <ChevronLeft aria-hidden="true" className="h-7 w-7" />
               </button>
@@ -156,7 +157,7 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Lightbox
                 type="button"
                 onClick={() => onNavigate((index + 1) % count)}
                 aria-label={ui.next}
-                className="flex h-12 w-12 items-center justify-center text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
+                className="flex h-12 w-12 items-center justify-center rounded-md text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
               >
                 <ChevronRight aria-hidden="true" className="h-7 w-7" />
               </button>

@@ -15,7 +15,7 @@ function BoardCard({ member }: { member: BoardMember }) {
   return (
     <Reveal>
       <article className="group">
-        <div className="relative aspect-[4/5] overflow-hidden border border-deep/15 bg-[#EDE3DF]/50">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-deep/15 bg-[#EDE3DF]/50">
           <span
             aria-hidden="true"
             className="absolute inset-0 flex items-center justify-center font-serif text-6xl text-lagoon"

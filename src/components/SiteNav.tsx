@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { Flower2, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { nav, site } from '@/data/content';
 import { classNames } from '@/lib/classNames';
 
@@ -55,12 +55,8 @@ export default function SiteNav() {
           aria-label={nav.homeLabel}
           className="flex items-center gap-3 text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
         >
-          {site.logo.src ? (
-            <img src={site.logo.src} alt={site.logo.alt} className="h-8 w-auto" />
-          ) : (
-            <Flower2 aria-hidden="true" className="h-7 w-7" strokeWidth={1.25} />
-          )}
-          <span className="font-sans text-[11px] font-medium uppercase tracking-[0.16em]">
+          <img src={site.logo.src} alt="" className="h-12 w-12 md:h-14 md:w-14" />
+          <span className="hidden font-sans text-[11px] font-medium uppercase tracking-[0.16em] min-[420px]:inline">
             {site.name}
           </span>
         </Link>
@@ -77,7 +73,7 @@ export default function SiteNav() {
           </ul>
           <NavLink
             to={nav.ticketsTo}
-            className="inline-flex items-center bg-mid px-5 py-3 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-lagoon focus-visible:outline-lagoon"
+            className="inline-flex items-center rounded-md bg-mid px-5 py-3 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-lagoon focus-visible:outline-lagoon"
           >
             {nav.ticketsLabel}
           </NavLink>
@@ -86,7 +82,7 @@ export default function SiteNav() {
         <div className="flex items-center gap-3 md:hidden">
           <NavLink
             to={nav.ticketsTo}
-            className="inline-flex items-center bg-mid px-4 py-2.5 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-lagoon focus-visible:outline-lagoon"
+            className="inline-flex items-center rounded-md bg-mid px-4 py-2.5 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-lagoon focus-visible:outline-lagoon"
           >
             {nav.ticketsShortLabel}
           </NavLink>
@@ -96,7 +92,7 @@ export default function SiteNav() {
             aria-controls="mobile-menu"
             aria-label={menuOpen ? nav.closeMenu : nav.openMenu}
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-11 w-11 items-center justify-center text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
           >
             {menuOpen ? <X aria-hidden="true" className="h-6 w-6" /> : <Menu aria-hidden="true" className="h-6 w-6" />}
           </button>
