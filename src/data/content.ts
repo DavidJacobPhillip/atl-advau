@@ -87,7 +87,8 @@ export const ui = {
 };
 
 export const hero = {
-  line: 'Return to the roots.',
+  line: 'Every dance begins with an adavu.',
+  subline: 'Ours begin in Atlanta.',
   video: {
     type: 'video',
     label: 'HERO VIDEO - dark-lit dancers',

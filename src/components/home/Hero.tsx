@@ -42,6 +42,9 @@ export default function Hero() {
         >
           {hero.line}
         </h1>
+        <p className="mt-6 font-serif text-[clamp(1.75rem,3vw,2.5rem)] italic leading-[1.2] text-blush">
+          {hero.subline}
+        </p>
       </motion.div>
     </section>
   );
