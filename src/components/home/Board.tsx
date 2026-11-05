@@ -11,9 +11,9 @@ function initialsOf(name: string): string {
     .join('');
 }
 
-function BoardCard({ member }: { member: BoardMember }) {
+function BoardCard({ member, delay }: { member: BoardMember; delay: number }) {
   return (
-    <Reveal>
+    <Reveal delay={delay}>
       <article className="group">
         <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-deep/15 bg-[#EDE3DF]/50">
           <span
@@ -74,9 +74,9 @@ export default function Board() {
         </Reveal>
 
         <ul className="mt-32 grid gap-x-8 gap-y-24 sm:grid-cols-2 lg:grid-cols-4">
-          {board.members.map((member) => (
+          {board.members.map((member, index) => (
             <li key={member.id}>
-              <BoardCard member={member} />
+              <BoardCard member={member} delay={(index % 4) * 0.06} />
             </li>
           ))}
         </ul>

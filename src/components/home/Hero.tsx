@@ -1,10 +1,8 @@
-import { motion, useReducedMotion } from 'framer-motion';
 import MediaPlaceholder from '@/components/MediaPlaceholder';
+import Reveal from '@/components/Reveal';
 import { hero } from '@/data/content';
 
 export default function Hero() {
-  const reduceMotion = useReducedMotion();
-
   return (
     <section
       aria-labelledby="hero-title"
@@ -30,22 +28,18 @@ export default function Hero() {
         }}
       />
 
-      <motion.div
-        className="page-container absolute inset-x-0 bottom-20 sm:bottom-24"
-        initial={reduceMotion ? false : { opacity: 0, scale: 1.03 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
-      >
-        <h1
-          id="hero-title"
-          className="font-serif text-display text-blush"
-        >
-          {hero.line}
-        </h1>
-        <p className="mt-6 font-serif text-[clamp(1.75rem,3vw,2.5rem)] italic leading-[1.2] text-blush">
-          {hero.subline}
-        </p>
-      </motion.div>
+      <div className="page-container absolute inset-x-0 bottom-20 sm:bottom-24">
+        <Reveal immediate delay={0.2}>
+          <h1 id="hero-title" className="font-serif text-display text-blush">
+            {hero.line}
+          </h1>
+        </Reveal>
+        <Reveal immediate delay={0.3}>
+          <p className="mt-6 font-serif text-[clamp(1.75rem,3vw,2.5rem)] italic leading-[1.2] text-blush">
+            {hero.subline}
+          </p>
+        </Reveal>
+      </div>
     </section>
   );
 }

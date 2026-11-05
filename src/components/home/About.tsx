@@ -58,7 +58,7 @@ export default function About() {
                   <Placard title={exhibit.title} lines={[exhibit.caption]} />
                 </figure>
               </Reveal>
-              <Reveal className={classNames('lg:row-start-1', exhibitLayouts[index].text)}>
+              <Reveal delay={0.08} className={classNames('lg:row-start-1', exhibitLayouts[index].text)}>
                 <p className="max-w-[60ch] text-[17px] leading-[1.6]">{exhibit.description}</p>
               </Reveal>
             </div>

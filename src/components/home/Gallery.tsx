@@ -75,7 +75,7 @@ export default function Gallery() {
           {visibleItems.map((item, viewerIndex) => {
             return (
               <li key={item.id} className="mb-20 break-inside-avoid sm:mb-28">
-                <Reveal>
+                <Reveal delay={(viewerIndex % 3) * 0.06}>
                   <figure>
                     <button
                       type="button"

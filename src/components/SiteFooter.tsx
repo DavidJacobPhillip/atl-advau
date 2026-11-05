@@ -1,12 +1,13 @@
 import { footer, site } from '@/data/content';
 import MediaPlaceholder from '@/components/MediaPlaceholder';
+import Reveal from '@/components/Reveal';
 
 export default function SiteFooter() {
   return (
     <footer className="bg-ink text-blush">
       <div className="page-container py-32">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-x-8">
-          <div className="lg:col-span-5">
+          <Reveal className="lg:col-span-5">
             <h2 className="font-serif text-[clamp(3rem,6vw,5rem)] leading-[1]">
               {footer.joinTitle}
             </h2>
@@ -25,9 +26,12 @@ export default function SiteFooter() {
                 {footer.rsvp.label}
               </a>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:col-span-6 lg:col-start-7">
+          <Reveal
+            delay={0.08}
+            className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:col-span-6 lg:col-start-7"
+          >
             <div className="space-y-4">
               <p className="eyebrow text-blush/70">{footer.instagram.label}</p>
               <a
@@ -76,7 +80,7 @@ export default function SiteFooter() {
                 {footer.donate.label}
               </a>
             </div>
-          </div>
+          </Reveal>
         </div>
 
         <div className="mt-24 h-px w-full bg-blush/15" />
