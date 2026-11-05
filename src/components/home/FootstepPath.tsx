@@ -11,6 +11,10 @@ type Curve = [Dot, Dot, Dot, Dot];
 const DOT_SPACING = 22;
 const FLICKERING_DOTS = 5;
 const EDGE_MARGIN = 14;
+// The first curve stops further from the edge than the others.
+const FIRST_CURVE_MARGIN = 0.1;
+// Figures taper at the feet, so dots this close to a foot are clear of them.
+const FOOT_APPROACH = 70;
 const OBSTACLE_PADDING = 12;
 const CURVE_SAMPLES = 400;
 const FOOT_CLEARANCE = 5;
@@ -55,14 +59,15 @@ function widestControls(
   to: Dot,
   leaving: number,
   arriving: number,
-  width: number
+  width: number,
+  margin: number
 ): [number, number] {
   for (let swing = WIDEST_SWING; swing > 0; swing -= SWING_STEP) {
     const first = from.x + leaving * swing * width;
     const second = to.x - arriving * swing * width;
     const fits = Array.from({ length: 41 }, (_, step) =>
       bezier(step / 40, from.x, first, second, to.x)
-    ).every((x) => x >= EDGE_MARGIN && x <= width - EDGE_MARGIN);
+    ).every((x) => x >= margin && x <= width - margin);
     if (fits) return [first, second];
   }
   return [from.x, to.x];
@@ -70,36 +75,32 @@ function widestControls(
 
 // A continuous wave through each foot: it heads right from the first dancer,
 // then each curve leaves in the direction the last one arrived.
-function buildCurves(root: HTMLElement) {
-  const silhouettes = Array.from(root.querySelectorAll<HTMLElement>('[data-silhouette]'));
-  const feet = silhouettes.map((silhouette) => footOf(silhouette, root));
-  const width = root.clientWidth;
+function buildCurves(feet: Dot[], width: number) {
   let leaving = 1;
 
   return feet.slice(0, -1).map((from, index) => {
     const to = feet[index + 1];
     const arriving = index % 2 === 0 ? -1 : 1;
     const ease = (to.y - from.y) * CURVE_EASE;
-    const [first, second] = widestControls(from, to, leaving, arriving, width);
+    const margin = index === 0 ? width * FIRST_CURVE_MARGIN : EDGE_MARGIN;
+    const [first, second] = widestControls(from, to, leaving, arriving, width, margin);
     leaving = arriving;
     return [from, { x: first, y: from.y + ease }, { x: second, y: to.y - ease }, to] as Curve;
   });
 }
 
-function obstaclesWithin(root: HTMLElement) {
-  return Array.from(root.querySelectorAll<HTMLElement>('h2, p, figure, [data-silhouette]')).map(
-    (element) => {
-      // No padding around silhouettes, so the path can reach their feet.
-      const padding = element.hasAttribute('data-silhouette') ? 0 : OBSTACLE_PADDING;
-      const { x, y } = positionWithin(element, root);
-      return {
-        left: x - padding,
-        right: x + element.offsetWidth + padding,
-        top: y - padding,
-        bottom: y + element.offsetHeight + padding,
-      };
-    }
-  );
+function boxOf(element: HTMLElement, root: HTMLElement, padding: number) {
+  const { x, y } = positionWithin(element, root);
+  return {
+    left: x - padding,
+    right: x + element.offsetWidth + padding,
+    top: y - padding,
+    bottom: y + element.offsetHeight + padding,
+  };
+}
+
+function isInside({ x, y }: Dot, box: ReturnType<typeof boxOf>) {
+  return x >= box.left && x <= box.right && y >= box.top && y <= box.bottom;
 }
 
 // Evenly spaced dots along a curve, with one exactly on each end.
@@ -134,18 +135,24 @@ export default function FootstepPath({ containerRef }: { containerRef: RefObject
     if (!container) return;
 
     const measure = () => {
-      const obstacles = obstaclesWithin(container);
-      const points = buildCurves(container).flatMap((curve, index) =>
-        // Each curve starts on the foot where the last one ended.
-        dotsAlong(curve).slice(index === 0 ? 0 : 1)
+      const silhouettes = Array.from(container.querySelectorAll<HTMLElement>('[data-silhouette]'));
+      const feet = silhouettes.map((silhouette) => footOf(silhouette, container));
+      const content = Array.from(container.querySelectorAll<HTMLElement>('h2, p, figure')).map(
+        (element) => boxOf(element, container, OBSTACLE_PADDING)
       );
+      const figures = silhouettes.map((silhouette) => boxOf(silhouette, container, 0));
+      const nearFoot = (dot: Dot) =>
+        feet.some((foot) => Math.hypot(dot.x - foot.x, dot.y - foot.y) <= FOOT_APPROACH);
+
       setDots(
-        points.filter(
-          ({ x, y }) =>
-            !obstacles.some(
-              (box) => x >= box.left && x <= box.right && y >= box.top && y <= box.bottom
-            )
-        )
+        buildCurves(feet, container.clientWidth)
+          // Each curve starts on the foot where the last one ended.
+          .flatMap((curve, index) => dotsAlong(curve).slice(index === 0 ? 0 : 1))
+          .filter(
+            (dot) =>
+              !content.some((box) => isInside(dot, box)) &&
+              (nearFoot(dot) || !figures.some((box) => isInside(dot, box)))
+          )
       );
     };
 
