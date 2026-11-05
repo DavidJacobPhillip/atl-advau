@@ -133,7 +133,7 @@ export const about = {
       title: 'SRISHTI',
       caption: 'The performance cohort, choreographing original work.',
       description:
-        'Srishti is our dance company, where the practice of the meetups becomes original choreography for the stage. Their most recent production, Bhakti Vilochanena, tells the story of Krishna through the eyes of his most devoted followers. Follow the company at @srishti_danceco.',
+        'Srishti is our dance company, where the practice of the meetups becomes original choreography for the stage. Our most recent production, Bhakti Vilochanena, tells the story of Krishna through the eyes of his most devoted followers. Follow the company at @srishti_danceco.',
       media: {
         type: 'photo',
         label: 'EXHIBIT PHOTO - Srishti on stage',

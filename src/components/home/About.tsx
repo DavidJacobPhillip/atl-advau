@@ -1,6 +1,7 @@
 import MediaPlaceholder from '@/components/MediaPlaceholder';
 import Placard from '@/components/Placard';
 import Reveal from '@/components/Reveal';
+import Silhouette from '@/components/home/Silhouette';
 import { about } from '@/data/content';
 import { classNames } from '@/lib/classNames';
 
@@ -49,13 +50,16 @@ export default function About() {
           </h2>
         </Reveal>
 
-        <div className="mt-24 grid grid-cols-12 gap-x-6">
-          <Reveal className="col-span-12 lg:col-span-4 lg:col-start-8">
+        <div className="mt-24 grid grid-cols-12 items-center gap-x-6 gap-y-16">
+          <Reveal className="col-span-12 lg:col-span-2 lg:col-start-6 lg:row-start-1">
+            <Silhouette index={0} className="mx-auto" />
+          </Reveal>
+          <Reveal className="col-span-12 lg:col-span-4 lg:col-start-8 lg:row-start-1">
             <p className="max-w-[60ch] text-[17px] leading-[1.6]">{about.intro}</p>
           </Reveal>
         </div>
 
-        <div className="mt-40 space-y-32 lg:space-y-40">
+        <div className="mt-24 space-y-32 lg:space-y-40">
           {about.exhibits.map((exhibit, index) => (
             <div
               key={exhibit.id}
@@ -77,7 +81,10 @@ export default function About() {
                 </figure>
               </Reveal>
               <Reveal delay={0.08} className={classNames('lg:row-start-1', exhibitLayouts[index].text)}>
-                <p className="max-w-[60ch] text-[17px] leading-[1.6]">{withInstagramLinks(exhibit.description)}</p>
+                <div className="max-w-[60ch]">
+                  <Silhouette index={index + 1} className="mx-auto mb-10" />
+                  <p className="text-[17px] leading-[1.6]">{withInstagramLinks(exhibit.description)}</p>
+                </div>
               </Reveal>
             </div>
           ))}
