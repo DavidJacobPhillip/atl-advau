@@ -70,6 +70,11 @@ export default function SiteNav() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a href={nav.donateHref} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                {nav.donateLabel}
+              </a>
+            </li>
           </ul>
           <a
             href={nav.ticketsHref}
@@ -129,6 +134,17 @@ export default function SiteNav() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href={nav.donateHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="font-serif text-[48px] leading-[1.1] text-blush transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
+                >
+                  {nav.donateLabel}
+                </a>
+              </li>
             </ul>
           </motion.div>
         )}

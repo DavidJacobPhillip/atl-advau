@@ -58,8 +58,6 @@ export default function SiteFooter() {
           <p>&copy; {site.copyright}</p>
         </div>
       </div>
-      {/* Last on the page, so jumping here lands at the very bottom. */}
-      <div id="donate" />
     </footer>
   );
 }

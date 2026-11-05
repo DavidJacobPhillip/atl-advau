@@ -73,6 +73,8 @@ export interface TicketTier {
   note?: string;
 }
 
+const VENMO_URL = 'https://venmo.com/u/ATLadavu';
+
 export const site = {
   name: 'Atlanta Adavu',
   tagline: 'Return to the roots.',
@@ -92,8 +94,9 @@ export const nav = {
     { label: 'About', to: '/#about' },
     { label: 'Gallery', to: '/#gallery' },
     { label: 'Board', to: '/#board' },
-    { label: 'Donate', to: '#donate' },
   ],
+  donateLabel: 'Donate',
+  donateHref: VENMO_URL,
   ticketsLabel: 'Tickets: Bhakti Vilochanena',
   ticketsShortLabel: 'Tickets',
   ticketsHref: 'https://www.instagram.com/p/DfGr3-gSViG/',
@@ -129,8 +132,8 @@ export const hero = {
 };
 
 export const about = {
-  statement: 'Every dance is built from a single step.',
-  accentWord: 'single',
+  statement: 'The adavu that unites us.',
+  accentWord: 'adavu',
   intro:
     'Atlanta Adavu is a Bharatanatyam collective founded in 2024 and part of a global network of 15+ adavu meetups. Here, dancers practice adavus, the foundational steps of Bharatanatyam, create new work, and perform.',
   exhibits: [
@@ -418,7 +421,7 @@ export const footer = {
     label: 'Donate',
     text: 'Your gift keeps our meetups open to every dancer and brings guest artists and new productions to Atlanta.',
     linkLabel: 'Venmo @ATLadavu',
-    href: 'https://venmo.com/u/ATLadavu',
+    href: VENMO_URL,
   },
 };
 
