@@ -1,6 +1,10 @@
 import heroVideo from '@/assets/hero.mp4';
 import heroPoster from '@/assets/hero-poster.jpg';
 import logo from '@/assets/logo.png';
+import meetupsVideo from '@/assets/adavu-meetups.mp4';
+import meetupsPoster from '@/assets/adavu-meetups-poster.jpg';
+import srishtiPhoto from '@/assets/srishti.jpg';
+import workshopsPhoto from '@/assets/guest-workshops.jpg';
 
 export type MediaType = 'photo' | 'video';
 
@@ -112,11 +116,12 @@ export const about = {
       description:
         'Adavus are the first steps every Bharatanatyam dancer learns, and the ones we keep coming back to. Our meetups bring dancers together to practice these steps side by side, at locations across Atlanta. To join one, send us a message on Instagram at @atl.adavu.',
       media: {
-        type: 'photo',
-        label: 'EXHIBIT PHOTO - adavu meetup practice circle',
-        ratio: '4/5',
-        src: '',
-        alt: 'Dancers practicing adavus together in a circle',
+        type: 'video',
+        label: 'EXHIBIT VIDEO - adavu meetups',
+        ratio: '9/16',
+        src: meetupsVideo,
+        poster: meetupsPoster,
+        alt: 'Groups of dancers practicing adavus together in homes and studios',
       } satisfies MediaAsset,
     },
     {
@@ -126,12 +131,11 @@ export const about = {
       description:
         'Srishti is our dance company, where the practice of the meetups becomes original choreography for the stage. Its production Bhakti Vilochanena tells the story of Krishna through the eyes of his most devoted followers. Follow the company at @srishti_danceco.',
       media: {
-        type: 'video',
-        label: 'EXHIBIT VIDEO - Srishti rehearsal, wide shot',
-        ratio: '16/9',
-        src: '',
-        poster: '',
-        alt: 'Srishti performers rehearsing an original piece',
+        type: 'photo',
+        label: 'EXHIBIT PHOTO - Srishti on stage',
+        ratio: '3/2',
+        src: srishtiPhoto,
+        alt: 'Five Srishti dancers in blue and purple saris gathered in a seated pose on stage',
       } satisfies MediaAsset,
     },
     {
@@ -142,10 +146,10 @@ export const about = {
         'Our workshops bring guest artists to Atlanta, giving our dancers the chance to learn from teachers beyond our own community. Each one adds a new perspective to the fundamentals we practice together. See more in the Workshops highlight on our Instagram.',
       media: {
         type: 'photo',
-        label: 'EXHIBIT PHOTO - guest artist workshop',
-        ratio: '3/4',
-        src: '',
-        alt: 'A visiting artist leading a studio workshop',
+        label: 'EXHIBIT PHOTO - guest artist',
+        ratio: '113/100',
+        src: workshopsPhoto,
+        alt: 'A Bharatanatyam dancer in a maroon and gold sari, arms outstretched, in front of an Atlanta Adavu banner',
       } satisfies MediaAsset,
     },
   ],

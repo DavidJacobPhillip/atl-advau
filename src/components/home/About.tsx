@@ -5,9 +5,9 @@ import { about } from '@/data/content';
 import { classNames } from '@/lib/classNames';
 
 const exhibitLayouts = [
-  { media: 'lg:col-span-6 lg:col-start-1', text: 'lg:col-span-4 lg:col-start-8' },
+  { media: 'lg:col-span-4 lg:col-start-2', text: 'lg:col-span-4 lg:col-start-7' },
   { media: 'lg:col-span-7 lg:col-start-6', text: 'lg:col-span-4 lg:col-start-1' },
-  { media: 'lg:col-span-5 lg:col-start-1', text: 'lg:col-span-4 lg:col-start-7' },
+  { media: 'lg:col-span-6 lg:col-start-1', text: 'lg:col-span-4 lg:col-start-8' },
 ];
 
 export default function About() {
