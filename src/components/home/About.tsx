@@ -42,7 +42,7 @@ export default function About() {
         <Reveal className="grid grid-cols-12 gap-x-6">
           <h2
             id="about-title"
-            className="col-span-12 font-serif text-[clamp(3.5rem,8vw,7rem)] leading-[1] lg:col-span-10"
+            className="col-span-12 font-serif text-[clamp(3.5rem,8vw,7rem)] leading-[1]"
           >
             {before}
             <em className="italic">{about.accentWord}</em>
@@ -50,20 +50,20 @@ export default function About() {
           </h2>
         </Reveal>
 
-        <div className="mt-24 grid grid-cols-12 gap-x-6">
-          <Reveal className="col-span-12 lg:col-span-4 lg:col-start-8">
-            <div className="max-w-[60ch]">
-              <Silhouette index={0} className="mx-auto mb-10" />
-              <p className="text-[17px] leading-[1.6]">{about.intro}</p>
-            </div>
+        <div className="mt-12 grid grid-cols-12 items-center gap-x-6 gap-y-12 lg:mt-24">
+          <Reveal className={classNames('col-span-12 lg:row-start-1', exhibitLayouts[0].media)}>
+            <Silhouette index={0} className="mx-auto" />
+          </Reveal>
+          <Reveal className="col-span-12 lg:col-span-4 lg:col-start-8 lg:row-start-1">
+            <p className="max-w-[60ch] text-[17px] leading-[1.6]">{about.intro}</p>
           </Reveal>
         </div>
 
-        <div className="mt-24 space-y-32 lg:space-y-40">
+        <div className="mt-24 space-y-24 lg:space-y-40">
           {about.exhibits.map((exhibit, index) => (
             <div
               key={exhibit.id}
-              className="grid grid-cols-1 gap-x-6 gap-y-10 lg:grid-cols-12 lg:items-center"
+              className="grid grid-cols-1 gap-x-6 gap-y-12 lg:grid-cols-12 lg:items-center"
             >
               <Reveal className={classNames('lg:row-start-1', exhibitLayouts[index].media)}>
                 <figure className="w-full">
@@ -82,7 +82,7 @@ export default function About() {
               </Reveal>
               <Reveal delay={0.08} className={classNames('lg:row-start-1', exhibitLayouts[index].text)}>
                 <div className="max-w-[60ch]">
-                  <Silhouette index={index + 1} className="mx-auto mb-10" />
+                  <Silhouette index={index + 1} className="mx-auto mb-12 lg:mb-10" />
                   <p className="text-[17px] leading-[1.6]">{withInstagramLinks(exhibit.description)}</p>
                 </div>
               </Reveal>

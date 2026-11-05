@@ -30,12 +30,12 @@ export default function Hero() {
 
       <div className="page-container absolute inset-x-0 bottom-20 [container-type:inline-size] sm:bottom-24">
         <Reveal immediate delay={0.2}>
-          <h1 id="hero-title" className="whitespace-nowrap font-serif text-[min(8.4cqw,7rem)] leading-none text-blush">
+          <h1 id="hero-title" className="font-serif text-[clamp(3.5rem,8vw,7rem)] leading-none text-blush md:whitespace-nowrap md:text-[min(8.4cqw,7rem)]">
             {hero.line}
           </h1>
         </Reveal>
         <Reveal immediate delay={0.3}>
-          <p className="mt-3 font-serif text-[clamp(1rem,3vw,2.5rem)] italic sm:mt-6 leading-[1.2] text-blush">
+          <p className="mt-6 font-serif text-[clamp(1.75rem,3vw,2.5rem)] italic leading-[1.2] text-blush">
             {hero.subline}
           </p>
         </Reveal>
