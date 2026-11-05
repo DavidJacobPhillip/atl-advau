@@ -52,7 +52,7 @@ export default function Gallery() {
     <section
       id="gallery"
       aria-labelledby="gallery-title"
-      className="scroll-mt-20 border-t border-deep/15 pb-40 pt-40"
+      className="scroll-mt-20 border-t border-deep/15 pb-20 pt-40"
     >
       <div className="page-container">
         <Reveal className="grid grid-cols-12 gap-x-6 gap-y-12">
@@ -99,7 +99,7 @@ export default function Gallery() {
           {columns.map((column, columnIndex) => (
             <ul key={columnIndex} className="min-w-0 flex-1">
               {column.map(({ item, viewerIndex }) => (
-                <li key={item.id} className="mb-20 sm:mb-28">
+                <li key={item.id} className="mb-20 last:mb-0 sm:mb-28 sm:last:mb-0">
                   <Reveal delay={columnIndex * 0.06}>
                     <figure>
                       <button

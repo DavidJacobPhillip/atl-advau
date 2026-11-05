@@ -25,7 +25,7 @@ function BoardCard({ member, delay }: { member: BoardMember; delay: number }) {
 
 export default function Board() {
   return (
-    <section id="board" aria-labelledby="board-title" className="scroll-mt-20 pb-40 pt-40">
+    <section id="board" aria-labelledby="board-title" className="scroll-mt-20 pb-40 pt-20">
       <div className="page-container">
         <div aria-hidden="true" className="flex items-center justify-between">
           {Array.from({ length: DOT_COUNT }, (_, index) => (
