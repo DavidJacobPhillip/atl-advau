@@ -10,6 +10,24 @@ const exhibitLayouts = [
   { media: 'lg:col-span-6 lg:col-start-1', text: 'lg:col-span-4 lg:col-start-8' },
 ];
 
+function withInstagramLinks(text: string) {
+  return text.split(/(@[\w.]*\w)/).map((part, index) =>
+    part.startsWith('@') ? (
+      <a
+        key={index}
+        href={`https://www.instagram.com/${part.slice(1)}/`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline decoration-lagoon underline-offset-4 transition-colors duration-300 hover:text-lagoon focus-visible:outline-lagoon"
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+}
+
 export default function About() {
   const [before, after] = about.statement.split(about.accentWord);
 
@@ -59,7 +77,7 @@ export default function About() {
                 </figure>
               </Reveal>
               <Reveal delay={0.08} className={classNames('lg:row-start-1', exhibitLayouts[index].text)}>
-                <p className="max-w-[60ch] text-[17px] leading-[1.6]">{exhibit.description}</p>
+                <p className="max-w-[60ch] text-[17px] leading-[1.6]">{withInstagramLinks(exhibit.description)}</p>
               </Reveal>
             </div>
           ))}

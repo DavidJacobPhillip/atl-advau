@@ -5,6 +5,11 @@ import meetupsVideo from '@/assets/adavu-meetups.mp4';
 import meetupsPoster from '@/assets/adavu-meetups-poster.jpg';
 import srishtiPhoto from '@/assets/srishti.jpg';
 import workshopsPhoto from '@/assets/guest-workshops.jpg';
+import boardTeam from '@/assets/board-team.jpg';
+import boardRachita from '@/assets/board-rachita.jpg';
+import boardSaidharshana from '@/assets/board-saidharshana.jpg';
+import boardShruti from '@/assets/board-shruti.jpg';
+import boardPreethi from '@/assets/board-preethi.jpg';
 
 export type MediaType = 'photo' | 'video';
 
@@ -32,7 +37,6 @@ export interface BoardMember {
   id: string;
   name: string;
   role: string;
-  bio: string;
   portrait: MediaAsset;
 }
 
@@ -129,7 +133,7 @@ export const about = {
       title: 'SRISHTI',
       caption: 'The performance cohort, choreographing original work.',
       description:
-        'Srishti is our dance company, where the practice of the meetups becomes original choreography for the stage. Its production Bhakti Vilochanena tells the story of Krishna through the eyes of his most devoted followers. Follow the company at @srishti_danceco.',
+        'Srishti is our dance company, where the practice of the meetups becomes original choreography for the stage. Their most recent production, Bhakti Vilochanena, tells the story of Krishna through the eyes of his most devoted followers. Follow the company at @srishti_danceco.',
       media: {
         type: 'photo',
         label: 'EXHIBIT PHOTO - Srishti on stage',
@@ -319,61 +323,57 @@ export const board = {
   groupPhoto: {
     type: 'photo',
     label: 'BOARD GROUP PHOTO',
-    ratio: '21/9',
-    src: '',
-    alt: 'The Atlanta Adavu board standing together',
+    ratio: '332/195',
+    src: boardTeam,
+    alt: 'The Atlanta Adavu board seated on a bench in saris. From left: Saidharshana Dhantu, Preethi Muthappa, Shruti Das and Rachita Iyer',
   } satisfies MediaAsset,
   members: [
     {
       id: 'rachita',
       name: 'Rachita Iyer',
-      role: 'Founder & Executive Director',
-      bio: 'Sets the vision and leads the collective, its meetups and partnerships. Keeps the community rooted in the adavu practice while it grows.',
+      role: 'Founder & Director',
       portrait: {
         type: 'photo',
         label: 'PORTRAIT - Rachita Iyer',
-        ratio: '4/5',
-        src: '',
-        alt: 'Portrait of Rachita Iyer',
+        ratio: '1080/1356',
+        src: boardRachita,
+        alt: 'Rachita Iyer in a purple sari, on a graphic showing the name and title',
       },
     },
     {
       id: 'saidharshana',
       name: 'Saidharshana Dhantu',
-      role: 'Performance Cohort Coordinator',
-      bio: 'Co-captains Srishti and leads its productions from first rehearsal to final bow. Guides dancers through original choreography.',
+      role: 'Performance Coordinator',
       portrait: {
         type: 'photo',
         label: 'PORTRAIT - Saidharshana Dhantu',
-        ratio: '4/5',
-        src: '',
-        alt: 'Portrait of Saidharshana Dhantu',
+        ratio: '1080/1356',
+        src: boardSaidharshana,
+        alt: 'Saidharshana Dhantu in a blue and teal sari, on a graphic showing the name and title',
       },
     },
     {
-      id: 'ruth',
-      name: 'Ruth Prithika',
-      role: 'Media Coordinator',
-      bio: 'Runs photography, video and social channels that carry the collective to its audience. Shapes how each performance is seen.',
+      id: 'shruti',
+      name: 'Shruti Das',
+      role: 'Social Media',
       portrait: {
         type: 'photo',
-        label: 'PORTRAIT - Ruth Prithika',
-        ratio: '4/5',
-        src: '',
-        alt: 'Portrait of Ruth Prithika',
+        label: 'PORTRAIT - Shruti Das',
+        ratio: '1080/1356',
+        src: boardShruti,
+        alt: 'Shruti Das in a magenta and gold sari, on a graphic showing the name and title',
       },
     },
     {
-      id: 'neelu',
-      name: 'Neelu Konkimalla',
-      role: 'Financial Coordinator',
-      bio: 'Manages finances and fundraising so the collective can keep its doors open. Co-captains Srishti alongside its production work.',
+      id: 'preethi',
+      name: 'Preethi Muthappa',
+      role: 'Finance Coordinator',
       portrait: {
         type: 'photo',
-        label: 'PORTRAIT - Neelu Konkimalla',
-        ratio: '4/5',
-        src: '',
-        alt: 'Portrait of Neelu Konkimalla',
+        label: 'PORTRAIT - Preethi Muthappa',
+        ratio: '1080/1356',
+        src: boardPreethi,
+        alt: 'Preethi Muthappa in a purple printed sari, on a graphic showing the name and title',
       },
     },
   ] satisfies BoardMember[],

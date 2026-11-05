@@ -4,37 +4,20 @@ import { board, type BoardMember } from '@/data/content';
 
 const DOT_COUNT = 15;
 
-function initialsOf(name: string): string {
-  return name
-    .split(' ')
-    .map((part) => part[0])
-    .join('');
-}
-
 function BoardCard({ member, delay }: { member: BoardMember; delay: number }) {
   return (
     <Reveal delay={delay}>
-      <article className="group">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-deep/15 bg-[#EDE3DF]/50">
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 flex items-center justify-center font-serif text-6xl text-lagoon"
-          >
-            {initialsOf(member.name)}
-          </span>
-          <div className="absolute inset-0 opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100">
-            <MediaPlaceholder
-              fill
-              label={member.portrait.label}
-              type={member.portrait.type}
-              src={member.portrait.src}
-              alt={member.portrait.alt}
-            />
-          </div>
-        </div>
+      <article>
+        <MediaPlaceholder
+          label={member.portrait.label}
+          ratio={member.portrait.ratio}
+          type={member.portrait.type}
+          src={member.portrait.src}
+          alt={member.portrait.alt}
+          className="w-full"
+        />
         <h3 className="mt-8 font-serif text-[32px] leading-[1.2] text-deep">{member.name}</h3>
         <p className="placard mt-3">{member.role}</p>
-        <p className="mt-4 max-w-[36ch] text-[15px] leading-[1.6] text-deep/85">{member.bio}</p>
       </article>
     </Reveal>
   );
