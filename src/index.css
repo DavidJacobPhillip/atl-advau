@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-blush font-sans text-[17px] leading-[1.6] text-deep;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-serif leading-[1.2];
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-4 outline-lagoon;
+  }
+
+  ::selection {
+    @apply bg-lagoon text-white;
+  }
+}
+
+@layer components {
+  .placard {
+    @apply font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-deep;
+  }
+
+  .eyebrow {
+    @apply font-sans text-[11px] font-medium uppercase tracking-[0.16em];
+  }
+
+  .hairline {
+    @apply h-px w-full bg-deep/15;
+  }
+
+  .page-container {
+    @apply mx-auto w-full max-w-page px-[7vw];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-mid px-7 py-3.5 font-sans text-[13px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-lagoon focus-visible:outline-lagoon;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
