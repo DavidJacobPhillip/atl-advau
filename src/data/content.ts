@@ -108,6 +108,8 @@ export const about = {
       id: 'meetups',
       title: 'ADAVU MEETUPS',
       caption: 'Open practice for all levels, several times a month.',
+      description:
+        'Adavus are the first steps every Bharatanatyam dancer learns, and the ones we keep coming back to. Our meetups bring dancers together to practice these steps side by side, at locations across Atlanta. To join one, send us a message on Instagram at @atl.adavu.',
       media: {
         type: 'photo',
         label: 'EXHIBIT PHOTO - adavu meetup practice circle',
@@ -120,6 +122,8 @@ export const about = {
       id: 'srishti',
       title: 'SRISHTI',
       caption: 'The performance cohort, choreographing original work.',
+      description:
+        'Srishti is our dance company, where the practice of the meetups becomes original choreography for the stage. Its production Bhakti Vilochanena tells the story of Krishna through the eyes of his most devoted followers. Follow the company at @srishti_danceco.',
       media: {
         type: 'video',
         label: 'EXHIBIT VIDEO - Srishti rehearsal, wide shot',
@@ -133,6 +137,8 @@ export const about = {
       id: 'workshops',
       title: 'GUEST WORKSHOPS',
       caption: 'Visiting artists from across the diaspora.',
+      description:
+        'Our workshops bring guest artists to Atlanta, giving our dancers the chance to learn from teachers beyond our own community. Each one adds a new perspective to the fundamentals we practice together. See more in the Workshops highlight on our Instagram.',
       media: {
         type: 'photo',
         label: 'EXHIBIT PHOTO - guest artist workshop',

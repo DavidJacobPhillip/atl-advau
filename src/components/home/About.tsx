@@ -2,11 +2,12 @@ import MediaPlaceholder from '@/components/MediaPlaceholder';
 import Placard from '@/components/Placard';
 import Reveal from '@/components/Reveal';
 import { about } from '@/data/content';
+import { classNames } from '@/lib/classNames';
 
 const exhibitLayouts = [
-  'lg:col-span-6 lg:col-start-1',
-  'lg:col-span-5 lg:col-start-8 lg:mt-48',
-  'lg:col-span-4 lg:col-start-3 lg:mt-32',
+  { media: 'lg:col-span-6 lg:col-start-1', text: 'lg:col-span-4 lg:col-start-8' },
+  { media: 'lg:col-span-7 lg:col-start-6', text: 'lg:col-span-4 lg:col-start-1' },
+  { media: 'lg:col-span-5 lg:col-start-1', text: 'lg:col-span-4 lg:col-start-7' },
 ];
 
 export default function About() {
@@ -36,23 +37,31 @@ export default function About() {
           </Reveal>
         </div>
 
-        <div className="mt-40 grid grid-cols-1 gap-x-6 gap-y-32 lg:grid-cols-12 lg:gap-y-40">
+        <div className="mt-40 space-y-32 lg:space-y-40">
           {about.exhibits.map((exhibit, index) => (
-            <Reveal key={exhibit.id} className={exhibitLayouts[index]}>
-              <figure className="w-full">
-                <MediaPlaceholder
-                  label={exhibit.media.label}
-                  ratio={exhibit.media.ratio}
-                  type={exhibit.media.type}
-                  src={exhibit.media.src}
-                  poster={exhibit.media.poster}
-                  alt={exhibit.media.alt}
-                  playInView={exhibit.media.type === 'video'}
-                  className="w-full"
-                />
-                <Placard title={exhibit.title} lines={[exhibit.caption]} />
-              </figure>
-            </Reveal>
+            <div
+              key={exhibit.id}
+              className="grid grid-cols-1 gap-x-6 gap-y-10 lg:grid-cols-12 lg:items-center"
+            >
+              <Reveal className={classNames('lg:row-start-1', exhibitLayouts[index].media)}>
+                <figure className="w-full">
+                  <MediaPlaceholder
+                    label={exhibit.media.label}
+                    ratio={exhibit.media.ratio}
+                    type={exhibit.media.type}
+                    src={exhibit.media.src}
+                    poster={exhibit.media.poster}
+                    alt={exhibit.media.alt}
+                    playInView={exhibit.media.type === 'video'}
+                    className="w-full"
+                  />
+                  <Placard title={exhibit.title} lines={[exhibit.caption]} />
+                </figure>
+              </Reveal>
+              <Reveal className={classNames('lg:row-start-1', exhibitLayouts[index].text)}>
+                <p className="max-w-[60ch] text-[17px] leading-[1.6]">{exhibit.description}</p>
+              </Reveal>
+            </div>
           ))}
         </div>
       </div>
