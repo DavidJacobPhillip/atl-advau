@@ -22,6 +22,7 @@ export default function Silhouette({ index, className }: { index: number; classN
     <img
       src={src}
       alt=""
+      data-silhouette
       width={Math.round(width * SCALE)}
       height={Math.round(height * SCALE)}
       className={classNames('block', className)}

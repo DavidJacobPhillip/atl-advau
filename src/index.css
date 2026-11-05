@@ -49,6 +49,44 @@
   }
 }
 
+@layer components {
+  .footstep {
+    @apply fill-lagoon;
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+  }
+
+  .footstep[data-drawn] {
+    opacity: 0.55;
+  }
+
+  .footstep[data-flicker] {
+    animation: footstep-flicker 1.35s linear infinite;
+  }
+}
+
+@keyframes footstep-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  18% {
+    opacity: 0.35;
+  }
+  27% {
+    opacity: 0.9;
+  }
+  52% {
+    opacity: 0.45;
+  }
+  71% {
+    opacity: 1;
+  }
+  84% {
+    opacity: 0.6;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

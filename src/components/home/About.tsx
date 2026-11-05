@@ -2,6 +2,8 @@ import MediaPlaceholder from '@/components/MediaPlaceholder';
 import Placard from '@/components/Placard';
 import Reveal from '@/components/Reveal';
 import Silhouette from '@/components/home/Silhouette';
+import { useRef } from 'react';
+import FootstepPath from '@/components/home/FootstepPath';
 import { about } from '@/data/content';
 import { classNames } from '@/lib/classNames';
 
@@ -31,18 +33,21 @@ function withInstagramLinks(text: string) {
 
 export default function About() {
   const [before, after] = about.statement.split(about.accentWord);
+  const sectionRef = useRef<HTMLElement>(null);
 
   return (
     <section
+      ref={sectionRef}
       id="about"
       aria-labelledby="about-title"
-      className="scroll-mt-20 pb-40 pt-40"
+      className="relative scroll-mt-20 pb-40 pt-20 lg:pt-40"
     >
-      <div className="page-container">
+      <FootstepPath containerRef={sectionRef} />
+      <div className="page-container relative z-10">
         <Reveal className="grid grid-cols-12 gap-x-6">
           <h2
             id="about-title"
-            className="col-span-12 font-serif text-[clamp(3.5rem,8vw,7rem)] leading-[1]"
+            className="col-span-12 font-serif text-headline"
           >
             {before}
             <em className="italic">{about.accentWord}</em>
