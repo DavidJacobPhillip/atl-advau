@@ -14,9 +14,6 @@ export default {
         serif: ['"Instrument Serif"', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
-      fontSize: {
-        display: ['clamp(4rem, 9vw, 7rem)', { lineHeight: '1' }],
-      },
       maxWidth: {
         page: '1440px',
       },
