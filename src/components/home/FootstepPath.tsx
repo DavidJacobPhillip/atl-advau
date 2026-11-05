@@ -68,13 +68,13 @@ function widestControls(
   return [from.x, to.x];
 }
 
-// A continuous wave through each foot: it heads left from the first dancer,
+// A continuous wave through each foot: it heads right from the first dancer,
 // then each curve leaves in the direction the last one arrived.
 function buildCurves(root: HTMLElement) {
   const silhouettes = Array.from(root.querySelectorAll<HTMLElement>('[data-silhouette]'));
   const feet = silhouettes.map((silhouette) => footOf(silhouette, root));
   const width = root.clientWidth;
-  let leaving = -1;
+  let leaving = 1;
 
   return feet.slice(0, -1).map((from, index) => {
     const to = feet[index + 1];
